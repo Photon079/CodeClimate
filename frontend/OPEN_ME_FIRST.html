@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚠️ Important - Read This First!</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 700px;
+      background: white;
+      border-radius: 20px;
+      padding: 50px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    
+    .icon {
+      font-size: 5em;
+      margin-bottom: 20px;
+    }
+    
+    h1 {
+      color: #ef4444;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+    
+    .warning {
+      background: #fef2f2;
+      border: 2px solid #fecaca;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+      color: #991b1b;
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+    
+    .steps {
+      text-align: left;
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 30px;
+      margin: 30px 0;
+    }
+    
+    .steps h2 {
+      color: #1f2937;
+      margin-bottom: 20px;
+      font-size: 1.5em;
+    }
+    
+    .step {
+      margin: 20px 0;
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      border-left: 4px solid #6366f1;
+    }
+    
+    .step-number {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background: #6366f1;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 30px;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    
+    code {
+      background: #1f2937;
+      color: #10b981;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+    }
+    
+    .button {
+      display: inline-block;
+      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+      color: white;
+      padding: 15px 40px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1em;
+      margin: 10px;
+      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+      transition: all 0.3s;
+    }
+    
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.6);
+    }
+    
+    .why {
+      background: #eff6ff;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: left;
+    }
+    
+    .why h3 {
+      color: #1e40af;
+      margin-bottom: 10px;
+    }
+    
+    .why p {
+      color: #1e3a8a;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon">⚠️</div>
+    <h1>Important: Read This First!</h1>
+    
+    <div class="warning">
+      <strong>The app won't work if you open index.html directly!</strong><br>
+      You need to use a local server for JavaScript modules to work.
+    </div>
+    
+    <div class="why">
+      <h3>🤔 Why?</h3>
+      <p>
+        Modern JavaScript uses ES6 modules which are blocked by browsers when using the <code>file://</code> protocol for security reasons (CORS policy). 
+        You need to serve the files through a local web server.
+      </p>
+    </div>
+    
+    <div class="steps">
+      <h2>✅ How to Start the App</h2>
+      
+      <div class="step">
+        <span class="step-number">1</span>
+        <strong>Open Terminal/Command Prompt</strong><br>
+        <small>Windows: Press Win+R, type "cmd", press Enter</small>
+      </div>
+      
+      <div class="step">
+        <span class="step-number">2</span>
+        <strong>Navigate to frontend folder</strong><br>
+        <code>cd path/to/invoice-guard/frontend</code>
+      </div>
+      
+      <div class="step">
+        <span class="step-number">3</span>
+        <strong>Start the server</strong><br>
+        <code>python -m http.server 8000</code><br>
+        <small>Or use: <code>python3 -m http.server 8000</code></small>
+      </div>
+      
+      <div class="step">
+        <span class="step-number">4</span>
+        <strong>Open your browser</strong><br>
+        Go to: <code>http://localhost:8000</code>
+      </div>
+    </div>
+    
+    <div style="margin: 30px 0;">
+      <a href="../START_SERVER.md" class="button">📖 Read Full Guide</a>
+      <a href="../START_APP.bat" class="button" download>💻 Download Windows Starter</a>
+    </div>
+    
+    <div style="margin-top: 30px; padding: 20px; background: #f0fdf4; border-radius: 12px;">
+      <p style="color: #166534; font-weight: 600;">
+        ✨ Once you start the server, all buttons and features will work perfectly!
+      </p>
+    </div>
+  </div>
+</body>
+</html>
