@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI Components Test</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
+        <h1 style="color: #00d4aa; margin-bottom: 2rem;">UI Components Test</h1>
+        
+        <!-- Test Input Validation -->
+        <section style="margin-bottom: 3rem;">
+            <h2 style="color: #0066ff; margin-bottom: 1rem;">Input Validation Test</h2>
+            <div class="input-section">
+                <div class="input-container">
+                    <label for="test-username" class="input-label">GitHub Username</label>
+                    <input type="text" id="test-username" class="username-input" placeholder="Enter test username">
+                    <button id="test-validate-btn" class="analyze-btn">Test Validation</button>
+                </div>
+                <div id="test-loading" class="loading-indicator hidden">
+                    <div class="spinner"></div>
+                    <p>Testing validation...</p>
+                </div>
+                <div id="test-error" class="error-message hidden"></div>
+            </div>
+        </section>
+
+        <!-- Test Insight Cards -->
+        <section>
+            <h2 style="color: #0066ff; margin-bottom: 1rem;">Insight Cards Test</h2>
+            <div id="test-insights" class="insights-container">
+                <!-- Insight cards will be generated here -->
+            </div>
+            <button id="test-insights-btn" style="background: #0066ff; color: white; padding: 1rem 2rem; border: none; border-radius: 8px; cursor: pointer; margin-top: 1rem;">
+                Generate Test Insights
+            </button>
+        </section>
+    </div>
+
+    <script type="module">
+        // Test input validation functionality
+        class UITester {
+            constructor() {
+                this.elements = {
+                    usernameInput: document.getElementById('test-username'),
+                    validateBtn: document.getElementById('test-validate-btn'),
+                    loadingIndicator: document.getElementById('test-loading'),
+                    errorMessage: document.getElementById('test-error'),
+                    insightsContainer: document.getElementById('test-insights'),
+                    insightsBtn: document.getElementById('test-insights-btn')
+                };
+                
+                this.setupEventListeners();
+            }
+
+            setupEventListeners() {
+                // Input validation test
+                this.elements.usernameInput.addEventListener('input', () => {
+                    this.validateInput();
+                });
+
+                this.elements.validateBtn.addEventListener('click', () => {
+                    this.testValidation();
+                });
+
+                // Insight cards test
+                this.elements.insightsBtn.addEventListener('click', () => {
+                    this.generateTestInsights();
+                });
+            }
+
+            validateInput() {
+                const username = this.elements.usernameInput.value.trim();
+                const validation = this.validateUsername(username, false);
+                
+                this.elements.validateBtn.disabled = !validation.isValid;
+                
+                if (username.length > 0 && !validation.isValid) {
+                    this.showValidationError(validation.message);
+                } else {
+                    this.hideError();
+                }
+                
+                this.updateInputValidationStyle(validation.isValid, username.length > 0);
+            }
+
+            validateUsername(username, showError = true) {
+                const result = { isValid: false, message: '' };
+
+                if (!username) {
+                    result.message = 'Please enter a GitHub username';
+                    if (showError) this.showError(result.message);
+                    return result;
+                }
+
+                if (username.length > 39) {
+                    result.message = 'Username must be 39 characters or less';
+                    if (showError) this.showError(result.message);
+                    return result;
+                }
+
+                if (!/^[a-z\d-]+$/i.test(username)) {
+                    result.message = 'Username can only contain letters, numbers, and hyphens';
+                    if (showError) this.showError(result.message);
+                    return result;
+                }
+
+                if (username.startsWith('-') || username.endsWith('-')) {
+                    result.message = 'Username cannot start or end with a hyphen';
+                    if (showError) this.showError(result.message);
+                    return result;
+                }
+
+                if (username.includes('--')) {
+                    result.message = 'Username cannot contain consecutive hyphens';
+                    if (showError) this.showError(result.message);
+                    return result;
+                }
+
+                const githubUsernameRegex = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i;
+                if (!githubUsernameRegex.test(username)) {
+                    result.message = 'Please enter a valid GitHub username';
+                    if (showError) this.showError(result.message);
+                    return result;
+                }
+
+                result.isValid = true;
+                return result;
+            }
+
+            updateInputValidationStyle(isValid, hasContent) {
+                const input = this.elements.usernameInput;
+                input.classList.remove('input-valid', 'input-invalid');
+                
+                if (hasContent) {
+                    if (isValid) {
+                        input.classList.add('input-valid');
+                    } else {
+                        input.classList.add('input-invalid');
+                    }
+                }
+            }
+
+            showValidationError(message) {
+                this.elements.errorMessage.textContent = message;
+                this.elements.errorMessage.classList.remove('hidden');
+                this.elements.errorMessage.classList.add('validation-error');
+            }
+
+            showError(message) {
+                this.elements.errorMessage.textContent = message;
+                this.elements.errorMessage.classList.remove('hidden', 'validation-error');
+                this.elements.errorMessage.classList.add('general-error');
+            }
+
+            hideError() {
+                this.elements.errorMessage.classList.add('hidden');
+                this.elements.errorMessage.classList.remove('validation-error', 'general-error');
+            }
+
+            testValidation() {
+                const username = this.elements.usernameInput.value.trim();
+                const validation = this.validateUsername(username, true);
+                
+                if (validation.isValid) {
+                    this.showError(`✅ Valid username: ${username}`);
+                    this.elements.errorMessage.classList.remove('general-error');
+                    this.elements.errorMessage.style.background = 'rgba(0, 212, 170, 0.1)';
+                    this.elements.errorMessage.style.borderColor = '#00d4aa';
+                    this.elements.errorMessage.style.color = '#00d4aa';
+                }
+            }
+
+            generateTestInsights() {
+                // Clear previous content
+                this.elements.insightsContainer.innerHTML = '';
+                
+                // Create test data
+                const testResults = {
+                    userEvents: 42,
+                    orgCount: 4,
+                    weatherDays: 30,
+                    insights: [
+                        {
+                            type: 'performance_comparison',
+                            title: '🚀 David Beats Goliath!',
+                            message: 'You\'re coding 25% more intensely than the Bangalore tech giants! Your average activity score of 78% outshines the industry baseline of 62%.',
+                            confidence: 0.9,
+                            category: 'positive',
+                            dataPoints: 15
+                        },
+                        {
+                            type: 'weather_correlation',
+                            title: '🌧️ Rain Effect',
+                            message: 'Rainy days make you code more! On rainy days, you\'re 35% more productive than average.',
+                            confidence: 0.7,
+                            category: 'analytical',
+                            dataPoints: 12
+                        },
+                        {
+                            type: 'consistency_analysis',
+                            title: '📈 Consistency Champion',
+                            message: 'Your coding consistency (0.85) is 40% better than the industry average. Steady progress beats sporadic bursts!',
+                            confidence: 0.8,
+                            category: 'positive',
+                            dataPoints: 15
+                        }
+                    ],
+                    performanceAnalysis: {
+                        hasEnoughData: true,
+                        userAverage: 78,
+                        baselineAverage: 62,
+                        performancePercentage: 25,
+                        category: 'outperforming',
+                        outperformDays: 12,
+                        dataPoints: 15,
+                        outperformPercentage: 80
+                    },
+                    weatherCorrelations: {
+                        hasEnoughData: true,
+                        dataPoints: 12,
+                        temperatureCorrelation: {
+                            coefficient: 0.45,
+                            strength: 'moderate',
+                            isSignificant: true
+                        },
+                        rainfallCorrelation: {
+                            coefficient: 0.35,
+                            strength: 'weak',
+                            isSignificant: true
+                        }
+                    }
+                };
+
+                // Generate insight cards using the same methods as the main app
+                this.createDataSummaryCard(testResults.userEvents, testResults.orgCount, testResults.weatherDays);
+                this.createPerformanceSummaryCard(testResults.performanceAnalysis);
+                this.createWeatherCorrelationCard(testResults.weatherCorrelations);
+                this.createInsightCardsSection(testResults.insights, testResults.performanceAnalysis, testResults.weatherCorrelations);
+
+                console.log('✅ Test insights generated successfully!');
+            }
+
+            // Copy the insight card creation methods from the main app
+            createDataSummaryCard(userEvents, orgCount, weatherDays) {
+                const summaryCard = document.createElement('div');
+                summaryCard.className = 'insight-card summary-card';
+                summaryCard.innerHTML = `
+                    <div class="insight-card-header">
+                        <h3 class="insight-card-title">✅ Data Processing Complete!</h3>
+                    </div>
+                    <div class="insight-card-content">
+                        <div class="data-metrics">
+                            <div class="metric">
+                                <span class="metric-icon">📊</span>
+                                <span class="metric-label">User Events:</span>
+                                <span class="metric-value">${userEvents}</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-icon">🏢</span>
+                                <span class="metric-label">Organizations:</span>
+                                <span class="metric-value">${orgCount}/4</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-icon">🌤️</span>
+                                <span class="metric-label">Weather Days:</span>
+                                <span class="metric-value">${weatherDays}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                this.elements.insightsContainer.appendChild(summaryCard);
+            }
+
+            createPerformanceSummaryCard(performanceAnalysis) {
+                const performanceCard = document.createElement('div');
+                performanceCard.className = 'insight-card performance-card';
+                
+                const performanceClass = performanceAnalysis.category === 'outperforming' ? 'positive' : 
+                                        performanceAnalysis.category === 'matching' ? 'neutral' : 'motivational';
+                
+                performanceCard.innerHTML = `
+                    <div class="insight-card-header">
+                        <h3 class="insight-card-title">📊 Performance Summary</h3>
+                        <span class="performance-badge ${performanceClass}">${performanceAnalysis.category}</span>
+                    </div>
+                    <div class="insight-card-content">
+                        <div class="performance-metrics">
+                            <div class="performance-comparison">
+                                <div class="comparison-item user">
+                                    <span class="comparison-label">Your Average</span>
+                                    <span class="comparison-value">${performanceAnalysis.userAverage}%</span>
+                                </div>
+                                <div class="comparison-vs">vs</div>
+                                <div class="comparison-item baseline">
+                                    <span class="comparison-label">Industry Baseline</span>
+                                    <span class="comparison-value">${performanceAnalysis.baselineAverage}%</span>
+                                </div>
+                            </div>
+                            <div class="performance-stats">
+                                <div class="stat">
+                                    <span class="stat-label">Performance Difference:</span>
+                                    <span class="stat-value ${performanceAnalysis.performancePercentage >= 0 ? 'positive' : 'negative'}">
+                                        ${performanceAnalysis.performancePercentage > 0 ? '+' : ''}${performanceAnalysis.performancePercentage}%
+                                    </span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label">Days Outperformed:</span>
+                                    <span class="stat-value">${performanceAnalysis.outperformDays}/${performanceAnalysis.dataPoints} (${performanceAnalysis.outperformPercentage}%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                this.elements.insightsContainer.appendChild(performanceCard);
+            }
+
+            createWeatherCorrelationCard(weatherCorrelations) {
+                const weatherCard = document.createElement('div');
+                weatherCard.className = 'insight-card weather-card';
+                weatherCard.innerHTML = `
+                    <div class="insight-card-header">
+                        <h3 class="insight-card-title">🌤️ Weather Correlations</h3>
+                    </div>
+                    <div class="insight-card-content">
+                        <div class="correlation-metrics">
+                            <div class="correlation-item">
+                                <div class="correlation-header">
+                                    <span class="correlation-icon">🌡️</span>
+                                    <span class="correlation-label">Temperature</span>
+                                </div>
+                                <div class="correlation-details">
+                                    <span class="correlation-coefficient ${weatherCorrelations.temperatureCorrelation.isSignificant ? 'significant' : 'weak'}">
+                                        ${weatherCorrelations.temperatureCorrelation.coefficient}
+                                    </span>
+                                    <span class="correlation-strength">${weatherCorrelations.temperatureCorrelation.strength}</span>
+                                </div>
+                            </div>
+                            <div class="correlation-item">
+                                <div class="correlation-header">
+                                    <span class="correlation-icon">🌧️</span>
+                                    <span class="correlation-label">Rainfall</span>
+                                </div>
+                                <div class="correlation-details">
+                                    <span class="correlation-coefficient ${weatherCorrelations.rainfallCorrelation.isSignificant ? 'significant' : 'weak'}">
+                                        ${weatherCorrelations.rainfallCorrelation.coefficient}
+                                    </span>
+                                    <span class="correlation-strength">${weatherCorrelations.rainfallCorrelation.strength}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                this.elements.insightsContainer.appendChild(weatherCard);
+            }
+
+            createInsightCardsSection(insights, performanceAnalysis, weatherCorrelations) {
+                const sectionHeader = document.createElement('div');
+                sectionHeader.className = 'insights-section-header';
+                sectionHeader.innerHTML = `
+                    <h3 class="section-title">💡 Your Personalized Insights</h3>
+                    <p class="section-subtitle">Discover patterns in your coding productivity</p>
+                `;
+                this.elements.insightsContainer.appendChild(sectionHeader);
+
+                const insightsGrid = document.createElement('div');
+                insightsGrid.className = 'insights-grid';
+
+                if (insights && insights.length > 0) {
+                    insights.forEach(insight => {
+                        const insightCard = this.createIndividualInsightCard(insight);
+                        insightsGrid.appendChild(insightCard);
+                    });
+                }
+
+                this.elements.insightsContainer.appendChild(insightsGrid);
+            }
+
+            createIndividualInsightCard(insight) {
+                const card = document.createElement('div');
+                card.className = `insight-card individual-insight ${insight.category || 'neutral'}`;
+                
+                const confidencePercentage = Math.round((insight.confidence || 0) * 100);
+                const confidenceClass = confidencePercentage >= 80 ? 'high' : confidencePercentage >= 60 ? 'medium' : 'low';
+                
+                card.innerHTML = `
+                    <div class="insight-card-header">
+                        <h4 class="insight-title">${insight.title}</h4>
+                        <div class="insight-meta">
+                            <span class="confidence-badge ${confidenceClass}">${confidencePercentage}%</span>
+                        </div>
+                    </div>
+                    <div class="insight-card-content">
+                        <p class="insight-message">${insight.message}</p>
+                        <div class="insight-footer">
+                            <span class="insight-type">${this.formatInsightType(insight.type)}</span>
+                            <span class="data-points">${insight.dataPoints || 0} data points</span>
+                        </div>
+                    </div>
+                `;
+                
+                return card;
+            }
+
+            formatInsightType(type) {
+                const typeMap = {
+                    'performance_comparison': 'Performance',
+                    'weather_correlation': 'Weather',
+                    'consistency_analysis': 'Consistency',
+                    'dominance_analysis': 'Dominance',
+                    'optimal_conditions': 'Optimal Conditions',
+                    'data_collection': 'Data Collection',
+                    'weather_tracking': 'Weather Tracking'
+                };
+                return typeMap[type] || type.replace('_', ' ');
+            }
+        }
+
+        // Initialize the tester
+        new UITester();
+    </script>
+</body>
+</html>

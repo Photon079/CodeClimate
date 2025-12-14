@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart Renderer Test</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div style="padding: 2rem;">
+        <h1 style="color: #00d4aa; margin-bottom: 2rem;">ChartRenderer Test</h1>
+        <div class="chart-container">
+            <canvas id="test-chart"></canvas>
+        </div>
+        <div style="margin-top: 2rem;">
+            <button id="test-btn" style="background: #00d4aa; color: white; padding: 1rem 2rem; border: none; border-radius: 8px; cursor: pointer;">
+                Test Chart Rendering
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module">
+        import ChartRenderer from './js/chart-renderer.js';
+
+        const chartRenderer = new ChartRenderer();
+        const canvas = document.getElementById('test-chart');
+        const testBtn = document.getElementById('test-btn');
+
+        testBtn.addEventListener('click', () => {
+            try {
+                // Test data
+                const userData = [
+                    { date: '2024-12-10', activityScore: 65 },
+                    { date: '2024-12-11', activityScore: 59 },
+                    { date: '2024-12-12', activityScore: 80 },
+                    { date: '2024-12-13', activityScore: 81 },
+                    { date: '2024-12-14', activityScore: 56 }
+                ];
+
+                const baselineData = [
+                    { date: '2024-12-10', activityScore: 28 },
+                    { date: '2024-12-11', activityScore: 48 },
+                    { date: '2024-12-12', activityScore: 40 },
+                    { date: '2024-12-13', activityScore: 19 },
+                    { date: '2024-12-14', activityScore: 86 }
+                ];
+
+                const weatherData = [
+                    { date: '2024-12-10', weather: { rainfall: 0 } },
+                    { date: '2024-12-11', weather: { rainfall: 2.5 } },
+                    { date: '2024-12-12', weather: { rainfall: 0 } },
+                    { date: '2024-12-13', weather: { rainfall: 8.2 } },
+                    { date: '2024-12-14', weather: { rainfall: 1.1 } }
+                ];
+
+                // Create chart
+                chartRenderer.createComboChart(canvas);
+                
+                // Prepare and update chart data
+                const chartData = chartRenderer.prepareChartData(userData, baselineData, weatherData);
+                chartRenderer.updateChart(chartData);
+
+                console.log('✅ Chart test successful!');
+                testBtn.textContent = 'Chart Rendered Successfully!';
+                testBtn.style.background = '#28a745';
+
+            } catch (error) {
+                console.error('❌ Chart test failed:', error);
+                testBtn.textContent = 'Chart Test Failed';
+                testBtn.style.background = '#dc3545';
+            }
+        });
+    </script>
+</body>
+</html>

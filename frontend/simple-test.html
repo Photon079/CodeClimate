@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bangalore Weather Index | Developer Productivity Analytics</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1 class="logo-text">Bangalore Weather Index</h1>
+                <p class="logo-subtitle">Developer Productivity Analytics Platform</p>
+            </div>
+            
+            <div class="header-input">
+                <div class="input-group">
+                    <label for="username" class="input-label">GitHub Username</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="username" class="username-input" placeholder="Enter GitHub username">
+                        <button id="analyze-btn" class="analyze-btn">
+                            <span class="btn-text">Analyze</span>
+                        </button>
+                    </div>
+                </div>
+                <div id="loading-indicator" class="loading-indicator hidden">
+                    <div class="loading-spinner"></div>
+                    <span class="loading-text">Processing data...</span>
+                </div>
+                <div id="error-message" class="error-message hidden"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Analytics Dashboard -->
+    <main class="main-content">
+        <!-- Executive Summary -->
+        <section class="executive-summary">
+            <div class="summary-header">
+                <h2>Executive Summary</h2>
+                <p>Comprehensive analysis of developer productivity patterns in Bangalore's tech ecosystem</p>
+            </div>
+            <div class="summary-metrics">
+                <div class="metric-card" id="activity-metric">
+                    <div class="metric-header">
+                        <h3>Activity Index</h3>
+                        <span class="metric-period">30-day average</span>
+                    </div>
+                    <div class="metric-value">85</div>
+                    <div class="metric-change">+12% vs Industry Baseline</div>
+                </div>
+                <div class="metric-card" id="weather-metric">
+                    <div class="metric-header">
+                        <h3>Weather Correlation</h3>
+                        <span class="metric-period">Pearson coefficient</span>
+                    </div>
+                    <div class="metric-value">0.67</div>
+                    <div class="metric-change">Significant</div>
+                </div>
+                <div class="metric-card" id="performance-metric">
+                    <div class="metric-header">
+                        <h3>Performance Ratio</h3>
+                        <span class="metric-period">vs Bangalore unicorns</span>
+                    </div>
+                    <div class="metric-value">78th</div>
+                    <div class="metric-change">percentile</div>
+                </div>
+                <div class="metric-card" id="consistency-metric">
+                    <div class="metric-header">
+                        <h3>Consistency Score</h3>
+                        <span class="metric-period">Standard deviation</span>
+                    </div>
+                    <div class="metric-value">92</div>
+                    <div class="metric-change">Stable</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Primary Analysis: Weather vs Developer Activity -->
+        <section class="primary-analysis">
+            <div class="analysis-header">
+                <h2>Primary Analysis: Weather Impact on Developer Productivity</h2>
+                <p>Correlation analysis between meteorological conditions and coding activity in Bangalore</p>
+            </div>
+            
+            <!-- Main Correlation Chart -->
+            <div class="chart-section primary-chart">
+                <div class="chart-header">
+                    <h3>Activity vs Weather Patterns</h3>
+                    <div class="chart-controls">
+                        <select class="chart-filter" id="time-range">
+                            <option value="30">Last 30 days</option>
+                            <option value="60">Last 60 days</option>
+                            <option value="90">Last 90 days</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #8892a6;">
+                        Chart will appear here after analysis
+                    </div>
+                </div>
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-indicator line-indicator"></div>
+                        <span>Your Activity</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-indicator line-indicator secondary"></div>
+                        <span>Industry Baseline</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-indicator bar-indicator"></div>
+                        <span>Precipitation (mm)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-indicator line-indicator tertiary"></div>
+                        <span>Temperature (°C)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weather Correlation Analysis -->
+            <div class="correlation-analysis">
+                <div class="correlation-grid">
+                    <div class="correlation-card">
+                        <h4>Precipitation Impact</h4>
+                        <div class="correlation-value">0.67</div>
+                        <div class="correlation-description">
+                            <span class="correlation-strength">Strong</span>
+                            <span class="correlation-direction">Positive</span>
+                        </div>
+                        <div class="correlation-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Rainy days productivity:</span>
+                                <span class="detail-value">+23%</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Dry days productivity:</span>
+                                <span class="detail-value">Baseline</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="correlation-card">
+                        <h4>Temperature Impact</h4>
+                        <div class="correlation-value">-0.34</div>
+                        <div class="correlation-description">
+                            <span class="correlation-strength">Moderate</span>
+                            <span class="correlation-direction">Negative</span>
+                        </div>
+                        <div class="correlation-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Optimal temperature:</span>
+                                <span class="detail-value">24°C</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Temperature range:</span>
+                                <span class="detail-value">22-26°C</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="correlation-card">
+                        <h4>Seasonal Patterns</h4>
+                        <div class="correlation-value">0.42</div>
+                        <div class="correlation-description">
+                            <span class="correlation-strength">Variance coefficient</span>
+                            <span class="correlation-direction">Moderate</span>
+                        </div>
+                        <div class="correlation-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Peak season:</span>
+                                <span class="detail-value">Monsoon</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Low season:</span>
+                                <span class="detail-value">Summer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Insights -->
+        <section class="insights-section">
+            <div class="analysis-header">
+                <h2>Detailed Insights & Recommendations</h2>
+                <p>Data-driven insights based on statistical analysis</p>
+            </div>
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <h3>Weather-Productivity Correlation</h3>
+                    <p>Statistical analysis reveals a strong correlation (r=0.67) between rainfall and your coding activity. Your productivity increases during rainy days, suggesting weather significantly impacts your work patterns.</p>
+                    <div class="insight-meta">
+                        <span class="confidence-level">Confidence: 89%</span>
+                        <span class="data-points">60 data points</span>
+                    </div>
+                </div>
+                
+                <div class="insight-card">
+                    <h3>Above Average Performance</h3>
+                    <p>You're performing 12% above the industry baseline, placing you in the 78th percentile. Strong performance with room for optimization.</p>
+                    <div class="insight-meta">
+                        <span class="confidence-level">Confidence: 85%</span>
+                        <span class="data-points">30 data points</span>
+                    </div>
+                </div>
+                
+                <div class="insight-card">
+                    <h3>Excellent Consistency</h3>
+                    <p>Your consistency score of 92 indicates highly stable productivity patterns. This reliability is a significant competitive advantage in professional development.</p>
+                    <div class="insight-meta">
+                        <span class="confidence-level">Confidence: 91%</span>
+                        <span class="data-points">30 data points</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Quality & Methodology -->
+        <section class="methodology-section">
+            <div class="analysis-header">
+                <h2>Data Quality & Methodology</h2>
+                <p>Transparency in data sources and analytical methods</p>
+            </div>
+            <div class="methodology-grid">
+                <div class="methodology-card">
+                    <h3>Data Sources</h3>
+                    <ul class="data-sources">
+                        <li>GitHub API: Push events and commit data</li>
+                        <li>Open-Meteo: Bangalore weather data</li>
+                        <li>Industry baseline: Zerodha, Razorpay, Postman, Hasura</li>
+                        <li>Temporal range: Last 30-90 days</li>
+                    </ul>
+                </div>
+                <div class="methodology-card">
+                    <h3>Statistical Methods</h3>
+                    <ul class="methods-list">
+                        <li>Pearson correlation coefficient</li>
+                        <li>Moving averages (7, 14, 30 day)</li>
+                        <li>Percentile ranking</li>
+                        <li>Standard deviation analysis</li>
+                    </ul>
+                </div>
+                <div class="methodology-card">
+                    <h3>Data Quality Metrics</h3>
+                    <div class="quality-metrics">
+                        <div class="quality-item">
+                            <span class="quality-label">Data completeness:</span>
+                            <span class="quality-value">94%</span>
+                        </div>
+                        <div class="quality-item">
+                            <span class="quality-label">Sample size:</span>
+                            <span class="quality-value">1,247</span>
+                        </div>
+                        <div class="quality-item">
+                            <span class="quality-label">Confidence level:</span>
+                            <span class="quality-value">89%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Bangalore Weather Index</h4>
+                <p>Advanced analytics platform for developer productivity research</p>
+            </div>
+            <div class="footer-section">
+                <h4>Data Sources</h4>
+                <p>GitHub API, Open-Meteo Weather API, Industry benchmarks</p>
+            </div>
+            <div class="footer-section">
+                <h4>Methodology</h4>
+                <p>Statistical correlation analysis, time series modeling</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Bangalore Weather Index. Professional analytics platform.</p>
+        </div>
+    </footer>
+
+    <script>
+        console.log('Simple test page loaded');
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded');
+            
+            const analyzeBtn = document.getElementById('analyze-btn');
+            const usernameInput = document.getElementById('username');
+            
+            if (analyzeBtn) {
+                analyzeBtn.addEventListener('click', () => {
+                    alert('Analysis functionality will be implemented with full JavaScript modules');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

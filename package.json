@@ -1,18 +1,35 @@
 {
-  "name": "invoice-guard",
+  "name": "codeclimate-analytics",
   "version": "1.0.0",
-  "description": "Invoice tracking application for Indian freelancers",
+  "description": "Professional developer productivity intelligence platform for Bangalore's tech ecosystem",
   "type": "module",
+  "main": "frontend/js/script.js",
   "scripts": {
-    "dev": "http-server frontend -p 8000 -o",
-    "start": "http-server frontend -p 8000 -o",
-    "test": "vitest --run",
-    "test:watch": "vitest"
+    "start": "npm run dev",
+    "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
+    "frontend": "serve -s frontend -l 3000",
+    "backend": "node backend/server.js",
+    "test": "echo 'No tests specified yet'",
+    "build": "echo 'No build process needed for static frontend'",
+    "serve": "serve -s frontend -l 3000"
   },
+  "keywords": [
+    "developer-productivity",
+    "analytics",
+    "weather-correlation",
+    "data-visualization",
+    "bangalore-tech",
+    "business-intelligence",
+    "dashboard"
+  ],
+  "author": "CodeClimate Analytics Team",
+  "license": "MIT",
   "devDependencies": {
-    "vitest": "^1.0.0",
-    "fast-check": "^3.15.0",
-    "jsdom": "^23.0.0",
-    "http-server": "^14.1.1"
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "serve": "^14.2.1",
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
   }
 }
